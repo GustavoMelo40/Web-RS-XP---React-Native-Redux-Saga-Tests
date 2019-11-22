@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
+import {Reducer as ratingBanks} from './ratingBanks';
 
 const reducers = combineReducers({
-  // Remova essa linha depois de adicionar seus ducks
-  example: () => [],
+  ratingBanks,
 });
 
 export default reducers;

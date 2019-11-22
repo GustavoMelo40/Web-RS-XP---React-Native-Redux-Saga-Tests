@@ -15,39 +15,45 @@ import {AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getUniqueId} from 'react-native-device-info';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {Actions} from '~/store/ducks/ratingBanks';
+
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name:
-      'Neon Pagamentos fsdfgiuysdgfisgiufsdguifsgiufsdgiufdsgiusdfguisfdgiu',
+    code: '655',
+    name: 'Neon Pagamentos',
     icon:
       'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    rating: '5',
+    generalRating: '5',
     myRating: '5',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    code: '358',
     name: 'Nu Bank',
     icon:
       'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    rating: '3',
+    generalRating: '3',
     myRating: '2',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    code: '134',
     name: 'Banco Brasil',
     icon:
       'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    rating: '2',
+    generalRating: '2',
     myRating: '1',
   },
 ];
 
-function ratingCompleted(rating) {
-  console.log('Rating is: ' + rating);
-}
-
 function Item({item}) {
+  const ratingCompleted = myRating => {
+    console.log('POST : Rating : ' + item.name + ' : ' + myRating);
+  };
+
   return (
     <View>
       <View style={styles.item}>
@@ -62,10 +68,10 @@ function Item({item}) {
           <View style={styles.spaceVertical} />
           <View>
             <Text style={styles.text} numberOfLines={1}>
-              {item.name}
+              {item.code + ' - ' + item.name}
             </Text>
             <View style={styles.row}>
-              <Text style={styles.text}>{item.rating}</Text>
+              <Text style={styles.text}>{item.generalRating}</Text>
               <View style={styles.spaceVertical} />
               <Icon name="star" size={10} color="#FFFFFF" />
             </View>
@@ -77,7 +83,7 @@ function Item({item}) {
             onFinishRating={ratingCompleted}
             selectedColor="white"
             defaultRating={item.myRating}
-            size={20}
+            size={16}
           />
         </View>
       </View>
@@ -85,6 +91,33 @@ function Item({item}) {
     </View>
   );
 }
+
+class Main extends React.Component {
+  componentDidMount() {
+    console.log('GET BANKS');
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#fff" />
+        <Text style={styles.textCenter}>{getUniqueId()}</Text>
+        <FlatList
+          data={DATA}
+          renderItem={({item}) => <Item item={item} />}
+          keyExtractor={item => item.id}
+        />
+      </SafeAreaView>
+    );
+  }
+}
+
+export default connect(
+  state => ({
+    banks: state.ratingBanks.banks,
+  }),
+  dispatch => bindActionCreators(Actions, dispatch),
+)(Main);
 
 const styles = StyleSheet.create({
   container: {
@@ -122,7 +155,7 @@ const styles = StyleSheet.create({
   rowDataItem: {
     alignItems: 'center',
     flexDirection: 'row',
-    width: '40%',
+    width: '50%',
   },
   rowRating: {
     alignItems: 'center',
@@ -130,20 +163,6 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: '#FFFFFF',
-    marginHorizontal: Dimensions.get('window').height * 0.025,
+    marginHorizontal: Dimensions.get('window').height * 0.02,
   },
 });
-
-const Main = () => (
-  <SafeAreaView style={styles.container}>
-    <StatusBar barStyle="light-content" backgroundColor="#fff" />
-    <Text style={styles.textCenter}>{getUniqueId()}</Text>
-    <FlatList
-      data={DATA}
-      renderItem={({item}) => <Item item={item} />}
-      keyExtractor={item => item.id}
-    />
-  </SafeAreaView>
-);
-
-export default Main;
