@@ -13,6 +13,7 @@ import {
 
 import {AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {getUniqueId} from 'react-native-device-info';
 
 const DATA = [
   {
@@ -76,6 +77,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
+  textCenter: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 16,
+    lineHeight: 24,
+  },
   item: {
     marginVertical: Dimensions.get('window').height * 0.005,
     flexDirection: 'row',
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
 const Main = () => (
   <SafeAreaView style={styles.container}>
     <StatusBar barStyle="light-content" backgroundColor="#fff" />
+    <Text style={styles.textCenter}>{getUniqueId()}</Text>
     <FlatList
       data={DATA}
       renderItem={({item}) => <Item item={item} />}
