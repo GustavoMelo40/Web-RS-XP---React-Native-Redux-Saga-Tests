@@ -11,7 +11,8 @@ import {
   StatusBar,
 } from 'react-native';
 
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import {AirbnbRating} from 'react-native-ratings';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const DATA = [
   {
@@ -51,8 +52,9 @@ function Item({item}) {
         <View>
           <Text style={styles.text}>{item.name}</Text>
           <Text style={styles.text}>{item.rating}</Text>
-          {/* <Icon name="facebook" backgroundColor="#3b5998" /> */}
+          <Icon name="star" size={10} color="#FFFFFF" />
         </View>
+        <AirbnbRating showRating={false} selectedColor="white" size={20} />
       </View>
       <View style={styles.divider} />
     </View>
