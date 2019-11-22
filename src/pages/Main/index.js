@@ -5,64 +5,95 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  ImageBackground,
+  SafeAreaView,
+  View,
+  FlatList,
   StatusBar,
 } from 'react-native';
 
+// import Icon from 'react-native-vector-icons/FontAwesome';
+
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    name: 'Neon Pagamentos',
+    icon:
+      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
+    rating: '5',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    name: 'Nu Bank',
+    icon:
+      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
+    rating: '3',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    name: 'Banco Brasil',
+    icon:
+      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
+    rating: '2',
+  },
+];
+
+function Item({item}) {
+  return (
+    <View>
+      <View style={styles.item}>
+        <Image
+          source={{
+            uri: item.icon,
+          }}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <View>
+          <Text style={styles.text}>{item.name}</Text>
+          <Text style={styles.text}>{item.rating}</Text>
+          {/* <Icon name="facebook" backgroundColor="#3b5998" /> */}
+        </View>
+      </View>
+      <View style={styles.divider} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     flex: 1,
-    paddingHorizontal: 20,
-  },
-  fileName: {
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
-  instructions: {
-    color: '#DDD',
-    fontSize: 14,
-    marginTop: 20,
-    textAlign: 'center',
+    backgroundColor: '#1DA1F0',
   },
   logo: {
-    height: Dimensions.get('window').height * 0.11,
-    marginVertical: Dimensions.get('window').height * 0.11,
-    width: Dimensions.get('window').height * 0.11 * (1950 / 662),
+    height: Dimensions.get('window').height * 0.075,
+    width: Dimensions.get('window').height * 0.075,
+    marginHorizontal: Dimensions.get('window').height * 0.025,
   },
-  welcome: {
-    color: '#fff',
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  text: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  item: {
+    marginVertical: Dimensions.get('window').height * 0.005,
+    flexDirection: 'row',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: Dimensions.get('window').height * 0.025,
   },
 });
 
 const Main = () => (
-  <ImageBackground
-    source={{
-      uri: 'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/background.png',
-    }}
-    style={styles.container}
-    resizeMode="cover">
-    <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-    <Image
-      source={{
-        uri:
-          'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-      }}
-      style={styles.logo}
-      resizeMode="contain"
+  <SafeAreaView style={styles.container}>
+    <StatusBar barStyle="light-content" backgroundColor="#fff" />
+    <FlatList
+      data={DATA}
+      renderItem={({item}) => <Item item={item} />}
+      keyExtractor={item => item.id}
     />
-    <Text style={styles.welcome}>Bem-vindo ao Template Avançado!</Text>
-    <Text style={styles.instructions}>
-      Essa é a tela principal da sua aplicação =)
-    </Text>
-    <Text style={styles.instructions}>Você pode editar a tela no arquivo:</Text>
-    <Text style={[styles.instructions, styles.fileName]}>
-      src/pages/Main/index.js
-    </Text>
-  </ImageBackground>
+  </SafeAreaView>
 );
 
 export default Main;
