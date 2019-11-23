@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getUniqueId} from 'react-native-device-info';
 
 const GET = 'get';
 const POST = 'post';
@@ -23,7 +24,7 @@ export default class Service {
   request = async ({body, url, params, method}) => {
     let options = {
       baseURL: this.baseURL + url,
-      headers: {...this.requestHeaders, uniqueId: 'DEVICEGUSTAVO'},
+      headers: {...this.requestHeaders, uniqueId: getUniqueId()},
       method,
       params,
     };
