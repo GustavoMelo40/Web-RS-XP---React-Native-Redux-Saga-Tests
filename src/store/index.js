@@ -1,5 +1,6 @@
 import {createStore, compose, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 import reducers from './ducks';
 import sagas from './sagas';
@@ -12,13 +13,14 @@ const sagaMiddleware = createSagaMiddleware({sagaMonitor});
 
 middlewares.push(sagaMiddleware);
 
-const composer = __DEV__
-  ? compose(
-      applyMiddleware(...middlewares),
-      console.tron.createEnhancer(),
-    )
-  : compose(applyMiddleware(...middlewares));
-
+const composer = composeWithDevTools(
+  __DEV__
+    ? compose(
+        applyMiddleware(...middlewares),
+        console.tron.createEnhancer(),
+      )
+    : applyMiddleware(...middlewares),
+);
 const store = createStore(reducers, composer);
 
 sagaMiddleware.run(sagas);

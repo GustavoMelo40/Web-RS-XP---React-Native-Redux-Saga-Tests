@@ -5,4 +5,8 @@ const reducers = combineReducers({
   ratingBanks,
 });
 
-export default reducers;
+const rootReducer = (state, action) => {
+  return reducers(state, action);
+};
+
+export default rootReducer;

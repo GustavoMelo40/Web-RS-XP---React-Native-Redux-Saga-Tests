@@ -19,36 +19,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions} from '~/store/ducks/ratingBanks';
 
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    code: '655',
-    name: 'Neon Pagamentos',
-    icon:
-      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    generalRating: '5',
-    myRating: '5',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    code: '358',
-    name: 'Nu Bank',
-    icon:
-      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    generalRating: '3',
-    myRating: '2',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    code: '134',
-    name: 'Banco Brasil',
-    icon:
-      'https://s3-sa-east-1.amazonaws.com/rocketseat-cdn/rocketseat_logo.png',
-    generalRating: '2',
-    myRating: '1',
-  },
-];
-
 function Item({item}) {
   const ratingCompleted = myRating => {
     console.log('POST : Rating : ' + item.name + ' : ' + myRating);
@@ -94,7 +64,7 @@ function Item({item}) {
 
 class Main extends React.Component {
   componentDidMount() {
-    console.log('GET BANKS');
+    this.props.ratingBank();
   }
 
   render() {
@@ -103,7 +73,7 @@ class Main extends React.Component {
         <StatusBar barStyle="light-content" backgroundColor="#fff" />
         <Text style={styles.textCenter}>{getUniqueId()}</Text>
         <FlatList
-          data={DATA}
+          data={this.props.banks}
           renderItem={({item}) => <Item item={item} />}
           keyExtractor={item => item.id}
         />
@@ -114,6 +84,7 @@ class Main extends React.Component {
 
 export default connect(
   state => ({
+    pending: state.ratingBanks.pending,
     banks: state.ratingBanks.banks,
   }),
   dispatch => bindActionCreators(Actions, dispatch),
