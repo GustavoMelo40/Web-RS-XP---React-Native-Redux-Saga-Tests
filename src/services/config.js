@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseURL: 'https://banksrating2.free.beeceptor.com',
+  baseURL: 'https://demo3086136.mockable.io',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

@@ -33,10 +33,20 @@ export default class Service {
     console.log(options);
 
     try {
-      const response = await axios.create(options).request();
-      return response.data.data;
+      if (method === 'post') {
+        axios
+          .post(options.baseURL, options.data, options)
+          .then(function(response) {
+            return response.data;
+          });
+      } else {
+        const response = await axios.create(options).request();
+        console.log(response);
+        return response.data.data;
+      }
     } catch (err) {
       let message;
+      console.log(err);
       message = err.response.data.message || err;
       throw new Error(message);
     }
