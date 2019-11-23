@@ -29,6 +29,7 @@ export default class Service {
     };
 
     options = await this.setBody(method, body, options);
+    console.log(options);
 
     try {
       const response = await axios.create(options).request();

@@ -1,9 +1,10 @@
 export const config = {
-  bank: {
+  banks: {
     url: '/banks',
     error: 'Houve um problema ao obter os bancos',
-    trackSuccess: 'REQUEST/BANK/SUCCESS',
-    trackPending: 'REQUEST/BANK/PENDING',
-    trackError: 'REQUEST/BANK/ERROR',
+  },
+  rate: {
+    url: '/rate',
+    error: 'Houve um problema ao avaliar o banco',
   },
 };

@@ -19,52 +19,57 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions} from '~/store/ducks/ratingBanks';
 
-function Item({item}) {
-  const ratingCompleted = myRating => {
-    console.log('POST : Rating : ' + item.name + ' : ' + myRating);
-  };
+class Main extends React.Component {
+  renderItem = ({item}) => {
+    const ratingCompleted = myRating => {
+      console.log('POST : Rating : ' + item.name + ' : ' + myRating);
+      let rate = {
+        id: item.id,
+        rate: myRating,
+      };
+      this.props.rateBank(rate);
+    };
 
-  return (
-    <View>
-      <View style={styles.item}>
-        <View style={styles.rowDataItem}>
-          <Image
-            source={{
-              uri: item.icon,
-            }}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <View style={styles.spaceVertical} />
-          <View>
-            <Text style={styles.text} numberOfLines={1}>
-              {item.code + ' - ' + item.name}
-            </Text>
-            <View style={styles.row}>
-              <Text style={styles.text}>{item.generalRating}</Text>
-              <View style={styles.spaceVertical} />
-              <Icon name="star" size={10} color="#FFFFFF" />
+    return (
+      <View>
+        <View style={styles.item}>
+          <View style={styles.rowDataItem}>
+            <Image
+              source={{
+                uri: item.icon,
+              }}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <View style={styles.spaceVertical} />
+            <View>
+              <Text style={styles.text} numberOfLines={1}>
+                {item.code + ' - ' + item.name}
+              </Text>
+              <View style={styles.row}>
+                <Text style={styles.text}>{item.generalRating}</Text>
+                <View style={styles.spaceVertical} />
+                <Icon name="star" size={10} color="#FFFFFF" />
+              </View>
             </View>
           </View>
+          <View style={styles.rowRating}>
+            <AirbnbRating
+              showRating={false}
+              onFinishRating={ratingCompleted}
+              selectedColor="white"
+              defaultRating={item.myRating}
+              size={16}
+            />
+          </View>
         </View>
-        <View style={styles.rowRating}>
-          <AirbnbRating
-            showRating={false}
-            onFinishRating={ratingCompleted}
-            selectedColor="white"
-            defaultRating={item.myRating}
-            size={16}
-          />
-        </View>
+        <View style={styles.divider} />
       </View>
-      <View style={styles.divider} />
-    </View>
-  );
-}
+    );
+  };
 
-class Main extends React.Component {
   componentDidMount() {
-    this.props.ratingBank();
+    this.props.banksRated();
   }
 
   render() {
@@ -74,7 +79,7 @@ class Main extends React.Component {
         <Text style={styles.textCenter}>{getUniqueId()}</Text>
         <FlatList
           data={this.props.banks}
-          renderItem={({item}) => <Item item={item} />}
+          renderItem={this.renderItem}
           keyExtractor={item => item.id}
         />
       </SafeAreaView>

@@ -7,20 +7,37 @@ const INITIAL_STATE = {
   errorMessage: '',
 };
 
-const ratingBank = {
-  ratingBank: () => ({
-    type: 'RATING_BANK',
+const banksRated = {
+  banksRated: () => ({
+    type: 'BANKS_RATED',
   }),
-  ratingBankSuccess: payload => ({
-    type: 'RATING_BANK_SUCCESS',
+  banksRatedSuccess: payload => ({
+    type: 'BANKS_RATED_SUCCESS',
     payload,
   }),
-  ratingBankError: payload => ({
-    type: 'RATING_BANK_ERROR',
+  banksRatedError: payload => ({
+    type: 'BANKS_RATED_ERROR',
     payload,
   }),
-  ratingBankPending: () => ({
-    type: 'RATING_BANK_PENDING',
+  banksRatedPending: () => ({
+    type: 'BANKS_RATED_PENDING',
+  }),
+};
+
+const rateBank = {
+  rateBank: payload => ({
+    type: 'RATE_BANK',
+    payload,
+  }),
+  rateBankSuccess: () => ({
+    type: 'RATE_BANK_SUCCESS',
+  }),
+  rateBankError: payload => ({
+    type: 'RATE_BANK_ERROR',
+    payload,
+  }),
+  rateBankPending: () => ({
+    type: 'RATE_BANK_PENDING',
   }),
 };
 
@@ -46,14 +63,20 @@ const requestError = (state, {payload}) => ({
 });
 
 export const {Types, Creators: Actions} = createActions({
-  ...ratingBank,
+  ...banksRated,
+  ...rateBank,
 });
 
 export const HANDLERS = {
-  [Types.RATING_BANK]: request,
-  [Types.RATING_BANK_PENDING]: requestPending,
-  [Types.RATING_BANK_ERROR]: requestError,
-  [Types.RATING_BANK_SUCCESS]: requestSuccess,
+  [Types.BANKS_RATED]: request,
+  [Types.BANKS_RATED_PENDING]: requestPending,
+  [Types.BANKS_RATED_ERROR]: requestError,
+  [Types.BANKS_RATED_SUCCESS]: requestSuccess,
+
+  [Types.RATE_BANK]: request,
+  [Types.RATE_BANK_SUCCESS]: requestPending,
+  [Types.RATE_BANK_ERROR]: requestError,
+  [Types.RATE_BANK_PENDING]: requestSuccess,
 };
 
 export const Reducer = createReducer(INITIAL_STATE, HANDLERS);

@@ -5,26 +5,47 @@ import {Actions, Types} from '~/store/ducks/ratingBanks';
 import BankService from '~/services/bank';
 
 const {
-  ratingBank,
-  ratingBankPending,
-  ratingBankSuccess,
-  ratingBankError,
+  banksRated,
+  banksRatedPending,
+  banksRatedSuccess,
+  banksRatedError,
+
+  rateBank,
+  rateBankPending,
+  rateBankSuccess,
+  rateBankError,
 } = Actions;
 
-function* ratingBankRequest() {
+function* banksRatedRequest() {
   try {
-    yield put(ratingBankPending());
-    const data = yield call(BankService.bank);
-    yield put(ratingBankSuccess(data));
+    yield put(banksRatedPending());
+    const data = yield call(BankService.banks);
+    yield put(banksRatedSuccess(data));
   } catch (e) {
-    yield put(ratingBankError(e.message));
+    yield put(banksRatedError(e.message));
   }
 }
 
-function* watchRatingBank() {
-  yield takeLatest(Types.RATING_BANK, ratingBankRequest);
+function* rateBankRequest({payload}) {
+  try {
+    yield put(rateBankPending());
+    yield call(BankService.rate, payload);
+    yield put(banksRated());
+    yield put(rateBankSuccess());
+  } catch (e) {
+    yield put(rateBankError(e.message));
+  }
+}
+
+function* watchBanksRated() {
+  yield takeLatest(Types.BANKS_RATED, banksRatedRequest);
+}
+
+function* watchRateBank() {
+  yield takeLatest(Types.RATE_BANK, rateBankRequest);
 }
 
 export default function* root() {
-  yield fork(watchRatingBank);
+  yield fork(watchBanksRated);
+  yield fork(watchRateBank);
 }
