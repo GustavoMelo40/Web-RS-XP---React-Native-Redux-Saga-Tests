@@ -11,16 +11,16 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {AirbnbRating} from 'react-native-ratings';
+import { AirbnbRating } from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {getUniqueId} from 'react-native-device-info';
+import { getUniqueId } from 'react-native-device-info';
 
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {Actions} from '~/store/ducks/ratingBanks';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Actions } from '~/store/ducks/ratingBanks';
 
 class Main extends React.Component {
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     const ratingCompleted = myRating => {
       let rate = {
         id: item.id,
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#1DA1F0',
   },
   logo: {
-    height: Dimensions.get('window').width * 0.2,
-    width: Dimensions.get('window').width * 0.2,
+    height: Dimensions.get('window').width * 0.1,
+    width: Dimensions.get('window').width * 0.1,
   },
   text: {
     color: '#FFFFFF',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   spaceVertical: {
-    marginRight: Dimensions.get('window').width * 0.008,
+    marginRight: Dimensions.get('window').width * 0.04,
   },
   textCenter: {
     textAlign: 'center',
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    padding: Dimensions.get('window').width * 0.04,
   },
   row: {
     alignItems: 'center',
