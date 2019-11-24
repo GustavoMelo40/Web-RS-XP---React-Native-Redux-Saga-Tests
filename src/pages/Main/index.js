@@ -10,17 +10,18 @@ import {
   FlatList,
   StatusBar,
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import { AirbnbRating } from 'react-native-ratings';
+import {AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getUniqueId } from 'react-native-device-info';
+import {getUniqueId} from 'react-native-device-info';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Actions } from '~/store/ducks/ratingBanks';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {Actions} from '~/store/ducks/ratingBanks';
 
 class Main extends React.Component {
-  renderItem = ({ item }) => {
+  renderItem = ({item}) => {
     const ratingCompleted = myRating => {
       let rate = {
         id: item.id,
@@ -81,6 +82,7 @@ class Main extends React.Component {
           renderItem={this.renderItem}
           keyExtractor={item => item.id}
         />
+        <Spinner visible={this.props.pending} />
       </SafeAreaView>
     );
   }
