@@ -23,7 +23,6 @@ class Main extends React.Component {
         id: item.id,
         rate: myRating,
       };
-      this.props.rateBank(rate);
     };
 
     return (

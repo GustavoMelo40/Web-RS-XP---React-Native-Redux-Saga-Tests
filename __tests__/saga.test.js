@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import {expectSaga} from 'redux-saga-test-plan';
 import BankService from '~/services/bank';
 import {Actions, Types} from '~/store/ducks/ratingBanks';
-import {watchBanksRated, watchRateBank} from '~/store/sagas';
+import {watchBanksRated} from '~/store/sagas';
 
 import {call, fork, put, takeLatest, select, all} from 'redux-saga/effects';
 
@@ -16,11 +16,6 @@ const {
   banksRatedPending,
   banksRatedSuccess,
   banksRatedError,
-
-  rateBank,
-  rateBankPending,
-  rateBankSuccess,
-  rateBankError,
 } = Actions;
 
 describe('Saga tests BankService', () => {
@@ -120,21 +115,6 @@ describe('Saga tests BankService', () => {
       .provide([[call(BankService.banks), payload]])
       .put(banksRatedSuccess(payload))
       .dispatch(banksRated())
-      .silentRun();
-  });
-
-  it('testing a rate bank', () => {
-    let data = {
-      id: '498489498498498498498498489',
-      rate: '5',
-    };
-
-    const payload = {};
-
-    return expectSaga(watchRateBank)
-      .provide([[call(BankService.rate, data), payload]])
-      .put(rateBankSuccess())
-      .dispatch(rateBank(data))
       .silentRun();
   });
 });

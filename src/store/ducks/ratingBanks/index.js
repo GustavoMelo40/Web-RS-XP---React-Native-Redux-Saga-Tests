@@ -24,23 +24,6 @@ const banksRated = {
   }),
 };
 
-const rateBank = {
-  rateBank: payload => ({
-    type: 'RATE_BANK',
-    payload,
-  }),
-  rateBankSuccess: () => ({
-    type: 'RATE_BANK_SUCCESS',
-  }),
-  rateBankError: payload => ({
-    type: 'RATE_BANK_ERROR',
-    payload,
-  }),
-  rateBankPending: () => ({
-    type: 'RATE_BANK_PENDING',
-  }),
-};
-
 const request = state => ({
   ...state,
 });
@@ -64,7 +47,6 @@ const requestError = (state, {payload}) => ({
 
 export const {Types, Creators: Actions} = createActions({
   ...banksRated,
-  ...rateBank,
 });
 
 export const HANDLERS = {
@@ -72,11 +54,6 @@ export const HANDLERS = {
   [Types.BANKS_RATED_PENDING]: requestPending,
   [Types.BANKS_RATED_ERROR]: requestError,
   [Types.BANKS_RATED_SUCCESS]: requestSuccess,
-
-  [Types.RATE_BANK]: request,
-  [Types.RATE_BANK_SUCCESS]: requestPending,
-  [Types.RATE_BANK_ERROR]: requestError,
-  [Types.RATE_BANK_PENDING]: requestSuccess,
 };
 
 export const Reducer = createReducer(INITIAL_STATE, HANDLERS);

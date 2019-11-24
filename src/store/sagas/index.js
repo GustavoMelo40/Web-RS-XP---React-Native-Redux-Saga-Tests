@@ -9,11 +9,6 @@ const {
   banksRatedPending,
   banksRatedSuccess,
   banksRatedError,
-
-  rateBank,
-  rateBankPending,
-  rateBankSuccess,
-  rateBankError,
 } = Actions;
 
 function* banksRatedRequest() {
@@ -26,26 +21,10 @@ function* banksRatedRequest() {
   }
 }
 
-function* rateBankRequest({payload}) {
-  try {
-    yield put(rateBankPending());
-    yield call(BankService.rate, payload);
-    yield put(banksRated());
-    yield put(rateBankSuccess());
-  } catch (e) {
-    yield put(rateBankError(e.message));
-  }
-}
-
 export function* watchBanksRated() {
   yield takeLatest(Types.BANKS_RATED, banksRatedRequest);
 }
 
-export function* watchRateBank() {
-  yield takeLatest(Types.RATE_BANK, rateBankRequest);
-}
-
 export default function* root() {
   yield fork(watchBanksRated);
-  yield fork(watchRateBank);
 }

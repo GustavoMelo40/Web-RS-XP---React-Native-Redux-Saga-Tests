@@ -12,7 +12,6 @@ class BankService extends Service {
   }
 
   banks = () => this.get(config.banks);
-  rate = (body: Rate) => this.post(config.rate, body);
 }
 
 export default new BankService();
