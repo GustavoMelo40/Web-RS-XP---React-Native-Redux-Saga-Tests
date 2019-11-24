@@ -1,21 +1,17 @@
 import React from 'react';
-
 import {
-  Text,
-  Image,
-  StyleSheet,
   Dimensions,
-  SafeAreaView,
-  View,
   FlatList,
-  StatusBar,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
+import {getUniqueId} from 'react-native-device-info';
 import Spinner from 'react-native-loading-spinner-overlay';
-
 import {AirbnbRating} from 'react-native-ratings';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {getUniqueId} from 'react-native-device-info';
-
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Actions} from '~/store/ducks/ratingBanks';
@@ -75,7 +71,6 @@ class Main extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="#fff" />
         <Text style={styles.textCenter}>{getUniqueId()}</Text>
         <FlatList
           data={this.props.banks}
