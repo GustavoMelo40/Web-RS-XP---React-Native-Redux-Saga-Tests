@@ -22,7 +22,6 @@ import {Actions} from '~/store/ducks/ratingBanks';
 class Main extends React.Component {
   renderItem = ({item}) => {
     const ratingCompleted = myRating => {
-      console.log('POST : Rating : ' + item.name + ' : ' + myRating);
       let rate = {
         id: item.id,
         rate: myRating,
@@ -44,7 +43,7 @@ class Main extends React.Component {
             <View style={styles.spaceVertical} />
             <View>
               <Text style={styles.text} numberOfLines={1}>
-                {item.code + ' - ' + item.name}
+                {item ? item.code + ' - ' + item.name : ''}
               </Text>
               <View style={styles.row}>
                 <Text style={styles.text}>{item.generalRating}</Text>

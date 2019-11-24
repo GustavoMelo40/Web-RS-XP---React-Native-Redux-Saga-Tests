@@ -37,6 +37,7 @@ export default class Service {
         axios
           .post(options.baseURL, options.data, options)
           .then(function(response) {
+            console.log(response);
             return response.data;
           });
       } else {

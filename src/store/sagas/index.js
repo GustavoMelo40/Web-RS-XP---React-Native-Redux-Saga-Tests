@@ -37,11 +37,11 @@ function* rateBankRequest({payload}) {
   }
 }
 
-function* watchBanksRated() {
+export function* watchBanksRated() {
   yield takeLatest(Types.BANKS_RATED, banksRatedRequest);
 }
 
-function* watchRateBank() {
+export function* watchRateBank() {
   yield takeLatest(Types.RATE_BANK, rateBankRequest);
 }
 
