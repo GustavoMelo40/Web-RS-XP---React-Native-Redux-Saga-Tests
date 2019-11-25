@@ -23,7 +23,7 @@ export default class Service {
 
   request = async ({body, url, params, method}) => {
     let options = {
-      baseURL: this.baseURL + url,
+      url: this.baseURL + url,
       headers: {...this.requestHeaders, uniqueId: getUniqueId()},
       method,
       params,
@@ -33,18 +33,9 @@ export default class Service {
     console.log(options);
 
     try {
-      if (method === 'post') {
-        axios
-          .post(options.baseURL, options.data, options)
-          .then(function(response) {
-            console.log(response);
-            return response.data;
-          });
-      } else {
-        const response = await axios.create(options).request();
-        console.log(response);
-        return response.data.data;
-      }
+      const response = await axios(options);
+      console.log(response);
+      return response.data.data ? response.data.data : response.data;
     } catch (err) {
       let message;
       console.log(err);
